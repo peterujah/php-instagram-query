@@ -1,4 +1,4 @@
-# php-router-template
+# php-instagram-query
 
 A simple php class to extract user profile picture, page_ids, profile_id & name from instagram
 
