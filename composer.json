@@ -1,0 +1,32 @@
+{
+    "name": "peterujah/php-instagram-query",
+    "type": "library",
+    "description": "A simple php class to extract user profile picture, page_ids, profile_id & name from instagram.",
+    "homepage": "https://github.com/peterujah/php-instagram-query",
+    "keywords": [
+        "library",
+        "instagram", 
+        "php instagram",
+        "instagram profile picture",
+        "php"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ujah Chigozie",
+            "email": "ujahchigozie@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "serps/core": "^0.3.1",
+        "serps/http-client-curl": "^0.2.3"
+    },
+
+    "autoload": {
+        "psr-4": { 
+            "Peterujah\\NanoBlock\\": "src/" 
+        }
+    },
+    "prefer-stable": true
+}
