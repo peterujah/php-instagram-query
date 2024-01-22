@@ -49,7 +49,7 @@ class userAgent {
      * Holds the version of android for the User Agent being generated
      * @property string $androidVersion
      */
-    public $androidVersion;
+    public string $androidVersion = '';
     /**
      * Android devices and for specific android versions
      * @var array $androidDevices
@@ -135,7 +135,7 @@ class userAgent {
      * List of "OS" strings used for android
      * @var array $android_os
      */
-    public $android_os = [ 'Linux; Android :androidVersion:; :androidDevice:',
+    public array $android_os = [ 'Linux; Android :androidVersion:; :androidDevice:',
                            //TODO: Add a $windowsDevices variable that does the same as androidDevice
                            //'Windows Phone 10.0; Android :androidVersion:; :windowsDevice:',
                            'Linux; U; Android :androidVersion:; :androidDevice:',
@@ -144,13 +144,13 @@ class userAgent {
      * List of "OS" strings used for iOS
      * @var array $mobile_ios
      */
-    public $mobile_ios = [ 'iphone' => 'iPhone; CPU iPhone OS :number7-11:_:number0-9:_:number0-9:; like Mac OS X;',
+    public array $mobile_ios = [ 'iphone' => 'iPhone; CPU iPhone OS :number7-11:_:number0-9:_:number0-9:; like Mac OS X;',
                            'ipad' => 'iPad; CPU iPad OS :number7-11:_:number0-9:_:number0-9: like Mac OS X;',
                            'ipod' => 'iPod; CPU iPod OS :number7-11:_:number0-9:_:number0-9:; like Mac OS X;', ];
     
     /**
      * Get a random operating system
-     * @param null|string $os
+     * @param string $os
      * @return string *
      */
     public function getOS(string $os = '') {
@@ -181,10 +181,10 @@ class userAgent {
     
     /**
      * Get Mobile OS
-     * @param null|string $os Can specifiy android, iphone, ipad, ipod, or null/blank for random
+     * @param string $os Can specify android, iphone, ipad, ipod, or null/blank for random
      * @return string *
      */
-    public function getMobileOS($os = NULL) {
+    public function getMobileOS(string $os = '') {
         $os = strtolower($os);
         $_os = [];
         switch( $os ) {
@@ -218,7 +218,8 @@ class userAgent {
      * @param $selected_os
      * @return null|string|string[] *
      */
-    public static function processRandomNumbers($selected_os) {
+    public static function processRandomNumbers(array|string $selected_os): mixed 
+    {
         return preg_replace_callback('/:number(\d+)-(\d+):/i', function($matches) { return random_int($matches[1], $matches[2]); }, $selected_os);
     }
     
@@ -227,7 +228,8 @@ class userAgent {
      * @param $selected_os
      * @return null|string|string[] *
      */
-    public static function processSpinSyntax($selected_os) {
+    public static function processSpinSyntax(array|string $selected_os): mixed 
+    {
         return preg_replace_callback('/\[([\w\-\s|;]*?)\]/i', function($matches) {
             $shuffle = explode('|', $matches[1]);
             return $shuffle[array_rand($shuffle)];
@@ -239,7 +241,8 @@ class userAgent {
      * @param $selected_os
      * @return null|string|string[] *
      */
-    public function processAndroidVersion($selected_os) {
+    public function processAndroidVersion(array|string $selected_os): mixed 
+    {
         $this->androidVersion = $version = $this->androidVersions[array_rand($this->androidVersions)];
         return preg_replace_callback('/:androidVersion:/i', function($matches) use ($version) { return $version; }, $selected_os);
     }
@@ -249,7 +252,8 @@ class userAgent {
      * @param $selected_os
      * @return null|string|string[] *
      */
-    public function addAndroidDevice($selected_os) {
+    public function addAndroidDevice(array|string $selected_os): mixed 
+    {
         $devices = $this->androidDevices[substr($this->androidVersion, 0, 3)];
         $device  = $devices[array_rand($devices)];
         
@@ -262,7 +266,8 @@ class userAgent {
      * @param $version
      * @return string *
      */
-    public static function chromeVersion($version) {
+    public static function chromeVersion(array $version): string 
+    {
         return random_int($version['min'], $version['max']) . '.0.' . random_int(1000, 4000) . '.' . random_int(100, 400);
     }
     
@@ -271,7 +276,8 @@ class userAgent {
      * @param $version
      * @return string *
      */
-    public static function firefoxVersion($version) {
+    public static function firefoxVersion(array $version): string 
+    {
         return random_int($version['min'], $version['max']) . '.' . random_int(0, 9);
     }
     
@@ -280,7 +286,8 @@ class userAgent {
      * @param $version
      * @return string *
      */
-    public static function windows($version) {
+    public static function windows(array $version): string 
+    {
         return random_int($version['min'], $version['max']) . '.' . random_int(0, 9);
     }
     
