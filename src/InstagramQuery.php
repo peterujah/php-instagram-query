@@ -49,19 +49,12 @@ class InstagramQuery{
         "posts" => '/(\d+) Posts/'
     ];
 
-    /** 
-     * Holds allowed operating systems
-     * @var array $oss
-    */
-    private static $oss = [ 'chrome', 'firefox', 'explorer', 'iphone', 'android', 'mobile', 'windows', 'mac', 'linux' ];
-    
     /**
 	* Class constructor
     * @param string $language browser language
     * @param string $os browser operating system for user-agent string
 	*/
     public function __construct(string $language = "en-US", string $os = '') {
-        $os = (in_array($os, self::$oss) ? $os : '');
         $userAgent = new userAgent($os);
         $this->browser = new Browser(
             new CurlClient(),
