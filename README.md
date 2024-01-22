@@ -1,6 +1,6 @@
 # php-instagram-query
 
-A simple php class to extract user profile picture, page_ids, profile_id & name from instagram
+A simple php class to extract user profile pictures, page_ids, profile_id followers, following, posts & name from instagram
 
 Installation is super-easy via Composer:
 ```md
@@ -18,10 +18,11 @@ $username = "peterchig";
 ```
 
 OR with options 
+List of supported os for userAgent string `[ 'chrome', 'firefox', 'explorer', 'iphone', 'android', 'mobile', 'windows', 'mac', 'linux' ]`
 
 ```php 
 use \Peterujah\NanoBlock\InstagramQuery;
-$lookup = new InstagramQuery($browserLanguage, $userAgent);
+$lookup = new InstagramQuery($browserLanguage, $os);
 $username = "peterchig";
 ```
 
@@ -46,9 +47,30 @@ echo $ig->profile;
 var_dump($ig);
 ```
 
-Fine user instagram name
+Fine user Instagram name
 ```php
 $ig = $lookup->findProfileName($username);
 echo $ig->name;
+var_dump($ig);
+```
+
+Fine user followers
+```php
+$ig = $lookup->findFollowers($username);
+echo $ig->followers;
+var_dump($ig);
+```
+
+Fine user following
+```php
+$ig = $lookup->findFollowing($username);
+echo $ig->following;
+var_dump($ig);
+```
+
+Fine user posts
+```php
+$ig = $lookup->findPosts($username);
+echo $ig->posts;
 var_dump($ig);
 ```
